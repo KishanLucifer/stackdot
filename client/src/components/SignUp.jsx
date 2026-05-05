@@ -11,7 +11,6 @@ export default function SignUp({ onSignUp, onToggle }) {
     const { fullname, email, password } = Object.fromEntries(
       new FormData(e.target),
     );
-    console.log("Sending Signup Data:", { fullname, email, password });
 
     try {
       const response = await fetch("/api/signup", {
@@ -28,7 +27,6 @@ export default function SignUp({ onSignUp, onToggle }) {
 
       onSignUp(data.access_token);
     } catch (err) {
-      console.error("Signup Error:", err.message);
       setError(err.message);
     }
   };

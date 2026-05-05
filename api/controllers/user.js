@@ -34,7 +34,6 @@ const formatUserDatatoSend = (user) => {
 export const signUp = async (req, res) => {
   try {
     const { fullname, email, password } = req.body;
-    console.log("Signup Request Body:", req.body);
 
     if (!fullname || !email || !password) {
       return res.status(403).json({ error: "Fullname, email, and password are required" });
