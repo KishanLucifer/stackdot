@@ -37,10 +37,8 @@ export const signIn = async (req, res) => {
 // Get Userprofile
 export const getUserData = async (req, res) => {
   try {
-    const { email, password } = req.body;
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-    await User.save();
-    res.status(200).json(formatUserDatatoSend(user));
+    const userId = req.user.id;
+    const user = await User.findById(userId).select("user.password");
   } catch (error) {
     console.log(error);
   }

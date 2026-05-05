@@ -1,5 +1,5 @@
 import express from "express";
-import userRoutes from "./routes/user.js";
+import userRoutes from "./routes/user";
 
 const app = express();
 const PORT = process.PORT || 3000;

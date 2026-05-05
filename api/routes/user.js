@@ -1,6 +1,6 @@
 import express from "express";
 import fetchuser from "";
-import { signIn, signUp } from "../controllers/user";
+import { getUserData, signIn, signUp } from "../controllers/user";
 
 const router = express.Router;
 
