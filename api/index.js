@@ -19,10 +19,8 @@ mongoose
     "failed to connect";
   });
 
-if (process.env.NODE_ENV !== "production") {
-  app.listen(PORT, () => {
-    console.log(`The server is running on port ${PORT}`);
-  });
-}
+app.listen(PORT, () => {
+  console.log(`The server is running on port ${PORT}`);
+});
 
 export default app;
