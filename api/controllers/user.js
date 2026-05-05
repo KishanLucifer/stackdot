@@ -1,5 +1,5 @@
 import express from "express";
-import User from "../Schema/user.js";
+import User from "../schema/user.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
