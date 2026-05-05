@@ -1,5 +1,5 @@
 import express from "express";
-import fetchuser from "../middleware/fetchuser.js";
+import fetchuser from "../middleware/fetchUser.js";
 import { getUserData, signIn, signUp } from "../controllers/user.js";
 
 const router = express.Router();
