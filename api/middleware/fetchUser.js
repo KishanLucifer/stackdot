@@ -1,0 +1,15 @@
+const fetchuser = (req, res, next) => {
+  const access_token = req.header("access_token");
+  if (!access_token) {
+    return res.status(401).json({ message: "Access token missing" });
+  }
+  JsonWebTokenError.veryfy(
+    access_token,
+    precess.env.SECRET_ACCESS_KEY,
+    (err, user) => {
+      return res.status(403).json({ message: "Invalid or expire token" });
+    },
+    (req.user = user),
+    next(),
+  );
+};
