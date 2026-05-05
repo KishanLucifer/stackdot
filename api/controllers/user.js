@@ -1,10 +1,9 @@
 import express from "express";
-import User from "../schema/user.js";
+import User from "../Schema/user.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 const router = express.Router();
-``;
 
 // Regex patterns
 const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -20,7 +19,6 @@ const formatUserDatatoSend = (user) => {
     },
     process.env.SECRET_ACCESS_KEY,
   );
-  console.log(access_token);
   return {
     success: true,
     access_token,
