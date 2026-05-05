@@ -1,5 +1,5 @@
 import express from "express";
-import User from "../Schema/User.js";
+import User from "../schema/user.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
@@ -11,7 +11,6 @@ const passwordRegex = /^.{6,20}$/;
 
 // Format user data for sending in response
 const formatUserDatatoSend = (user) => {
-  // let success = false;
   const access_token = jwt.sign(
     {
       id: user._id,
@@ -36,7 +35,9 @@ export const signUp = async (req, res) => {
     const { fullname, email, password } = req.body;
 
     if (!fullname || !email || !password) {
-      return res.status(403).json({ error: "Fullname, email, and password are required" });
+      return res
+        .status(403)
+        .json({ error: "Fullname, email, and password are required" });
     }
 
     const exsistingUser = await User.findOne({ email });
