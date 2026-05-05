@@ -1,5 +1,4 @@
 import express from "express";
-import express from "";
 
 // Signup Route
 export const signUp = async (req, res) => {

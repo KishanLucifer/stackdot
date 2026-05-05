@@ -1,9 +1,11 @@
+import jwt from "jsonwebtoken";
+
 const fetchuser = (req, res, next) => {
   const access_token = req.header("access_token");
   if (!access_token) {
     return res.status(401).json({ message: "Access token missing" });
   }
-  JsonWebTokenError.veryfy(
+  jwt.verify(
     access_token,
     precess.env.SECRET_ACCESS_KEY,
     (err, user) => {
@@ -13,3 +15,4 @@ const fetchuser = (req, res, next) => {
     next(),
   );
 };
+export default fetchuser;

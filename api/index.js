@@ -1,5 +1,6 @@
 import express from "express";
-import userRoutes from "./routes/user";
+import mongoose from "mongoose";
+import userRoutes from "./routes/user.js";
 
 const app = express();
 const PORT = process.PORT || 3000;
