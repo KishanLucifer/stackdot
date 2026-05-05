@@ -10,7 +10,7 @@ const fetchuser = (req, res, next) => {
       return res.status(403).json({ message: "Invalid or expired token" });
     }
 
-    req.user = user; // Attach the user object to the request
+    req.user = user;
     next();
   });
 };
