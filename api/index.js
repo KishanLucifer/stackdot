@@ -1,9 +1,13 @@
 import express from "express";
 import mongoose from "mongoose";
 import userRoutes from "./routes/user.js";
+import dotenv from "dotenv";
+dotenv.config();
 
 const app = express();
-const PORT = process.PORT || 3000;
+const PORT = process.env.PORT || 3000;
+
+app.use(express.json()); // for JSON data
 
 app.use("/", userRoutes);
 mongoose

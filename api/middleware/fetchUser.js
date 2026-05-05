@@ -5,14 +5,14 @@ const fetchuser = (req, res, next) => {
   if (!access_token) {
     return res.status(401).json({ message: "Access token missing" });
   }
-  jwt.verify(
-    access_token,
-    precess.env.SECRET_ACCESS_KEY,
-    (err, user) => {
-      return res.status(403).json({ message: "Invalid or expire token" });
-    },
-    (req.user = user),
-    next(),
-  );
+  jwt.verify(access_token, process.env.SECRET_ACCESS_KEY, (err, user) => {
+    if (err) {
+      return res.status(403).json({ message: "Invalid or expired token" });
+    }
+
+    req.user = user; // Attach the user object to the request
+    next();
+  });
 };
+
 export default fetchuser;
