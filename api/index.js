@@ -9,17 +9,22 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+const DB = process.env.DB_LOCATION || process.env.DB_LOCATION_LOCAL;
+
+// console.log("Using DB:", DB);
+
 app.use(express.json()); // for JSON data
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: ["https://stackdot-frontend.vercel.app", "http://localhost:5173"],
     credentials: true,
   }),
 );
 
-app.use("/", userRoutes);
+app.use("/api", userRoutes);
+
 mongoose
-  .connect(process.env.DB_LOCATION)
+  .connect(DB)
   .then(() => {
     console.log("DB Connected");
   })

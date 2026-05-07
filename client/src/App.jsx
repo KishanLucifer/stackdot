@@ -1,25 +1,60 @@
 import { useState, useEffect } from "react";
 import SignIn from "./components/SignIn";
-import SignUp from "./components/SignUp";
+import SignUp from "./components/Signup";
 import Profile from "./components/Profile";
 import "./App.css";
 
 function App() {
   const [user, setUser] = useState(null);
-  const [isSignIn, setIsSignIn] = useState(true);
+  const [isSignIn, setIsSignIn] = useState(false);
 
-  const toggleMode = () => setIsSignIn(!isSignIn);
+  const HOST = import.meta.env.VITE_SERVER_DOMAIN;
+
+  const toggleMode = () => {
+    setIsSignIn((prev) => !prev);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("access_token");
+    setUser(null);
+  };
 
   useEffect(() => {
-    const token = localStorage.getItem("access_token");
-    if (token) {
-      fetchUserData(token);
-    }
-  }, []);
+    const loadUser = async () => {
+      const token = localStorage.getItem("access_token");
 
-  const fetchUserData = async (accessToken) => {
+      if (!token) return;
+
+      try {
+        const response = await fetch(`${HOST}/api/getuserdata`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            access_token: token,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch user data");
+        }
+
+        const userData = await response.json();
+
+        setUser(userData);
+      } catch (error) {
+        console.error("User fetch error:", error);
+        handleLogout();
+      }
+    };
+
+    loadUser();
+  }, [HOST]);
+
+  const handleAuthSuccess = async (accessToken) => {
     try {
-      const response = await fetch("/api/getuserdata", {
+      localStorage.setItem("access_token", accessToken);
+
+      const response = await fetch(`${HOST}/api/getuserdata`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -32,37 +67,24 @@ function App() {
       }
 
       const userData = await response.json();
+
       setUser(userData);
     } catch (error) {
-      console.error(error);
+      console.error("Authentication error:", error);
       handleLogout();
     }
-  };
-
-  const handleAuthSuccess = (accessToken) => {
-    localStorage.setItem("access_token", accessToken);
-    fetchUserData(accessToken);
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem("access_token");
-    setUser(null);
   };
 
   return (
     <div>
       {!user ? (
-        <div>
-          {isSignIn ? (
-            <SignIn onSignIn={handleAuthSuccess} onToggle={toggleMode} />
-          ) : (
-            <SignUp onSignUp={handleAuthSuccess} onToggle={toggleMode} />
-          )}
-        </div>
+        isSignIn ? (
+          <SignIn onSignIn={handleAuthSuccess} onToggle={toggleMode} />
+        ) : (
+          <SignUp onSignUp={handleAuthSuccess} onToggle={toggleMode} />
+        )
       ) : (
-        <div>
-          <Profile user={user} onLogout={handleLogout} />
-        </div>
+        <Profile user={user} onLogout={handleLogout} />
       )}
     </div>
   );

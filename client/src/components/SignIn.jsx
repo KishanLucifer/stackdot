@@ -3,6 +3,7 @@ import { useState } from "react";
 export default function SignIn({ onSignIn, onToggle }) {
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const HOST = import.meta.env.VITE_SERVER_DOMAIN;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -11,7 +12,7 @@ export default function SignIn({ onSignIn, onToggle }) {
     const { email, password } = Object.fromEntries(new FormData(e.target));
 
     try {
-      const response = await fetch("/api/signin", {
+      const response = await fetch(`${HOST}/api/signin`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),

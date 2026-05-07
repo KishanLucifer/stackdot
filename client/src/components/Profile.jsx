@@ -4,12 +4,15 @@ export default function Profile({ user, onLogout }) {
   return (
     <div>
       <h2>Profile</h2>
-      <div style={{ marginBottom: "15px" }}>
+      <div>
         <p>
           <strong>Name:</strong> {user.fullname || "User"}
         </p>
         <p>
           <strong>Email:</strong> {user.email}
+        </p>
+        <p>
+          <strong>ID:</strong> {user._id}
         </p>
       </div>
 
