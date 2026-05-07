@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import SignIn from "./components/SignIn";
-import SignUp from "./components/Signup";
+import SignUp from "./components/SignUp";
 import Profile from "./components/Profile";
 import "./App.css";
 
