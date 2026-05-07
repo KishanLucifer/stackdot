@@ -1,6 +1,6 @@
 # StackDot Practical Task
 
-## A Personal Note from Ajay Varsur Before Anthing Else
+## A Personal Note from Ajay Varsur Before Anything Else
 
 A special thank you to **Vivek Godhani Sir** for being incredibly supportive during my first interview round, and to **Aayushi Ma'am** for so graciously giving me this opportunity even after I accidentally missed the initial email. Your understanding and support mean a lot!
 
